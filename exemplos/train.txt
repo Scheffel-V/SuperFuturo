@@ -1,0 +1,3 @@
+PATH/imagem1.jpg
+PATH/imagem2.jpg
+PATH/imagem3.jpg

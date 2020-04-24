@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+
+//DAO genérico uma classe q fornece vários métodos comuns para várias classes
 public abstract class AbstractDAO<T, PK extends Serializable> {
 
 	@SuppressWarnings("unchecked")
@@ -45,10 +47,12 @@ public abstract class AbstractDAO<T, PK extends Serializable> {
 		return entityManager
 				.createQuery("from " + entityClass.getSimpleName(), entityClass)
 				.getResultList();
-	}	
-	
+    }	
+    
+	//usado a partir de herança e por classes que herdam AbstractDAO
 	protected List<T> createQuery(String jpql, Object... params) {
-		TypedQuery<T> query = entityManager.createQuery(jpql, entityClass);
+        TypedQuery<T> query = entityManager.createQuery(jpql, entityClass);
+        //informar a jpql a classe de entidade referente a esta consulta
 		for (int i = 0; i < params.length; i++) {
 		    query.setParameter(i+1, params[i]);
         }

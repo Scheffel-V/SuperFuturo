@@ -14,9 +14,9 @@ public class Compras extends AbstractEntity<Long>{
     @OneToMany(mappedBy = "compras") 
     private List<Produto> produtos;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id_fk")
-    private Usuario usuario;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "usuario_id_fk")
+    //private Usuario usuario;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(3,2) DEFAULT 0.00")
     private BigDecimal precoTotal;
@@ -38,9 +38,9 @@ public class Compras extends AbstractEntity<Long>{
     /**
      * @param usuario the usuario to set
      */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    //public void setUsuario(Usuario usuario) {
+    //    this.usuario = usuario;
+    //}
 
     /**
      * @return the precoTotal
@@ -59,9 +59,9 @@ public class Compras extends AbstractEntity<Long>{
     /**
      * @return the usuario
      */
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    //public Usuario getUsuario() {
+    //    return usuario;
+    //}
 
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.apache.commons.validator.routines.CreditCardValidator;
 
 @Entity
 @Table(name = "creditcards")
@@ -51,7 +52,7 @@ public class CreditCard {
 	}
 
 	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
+		this.cardNumber = this.isValidCardNumber(cardNumber) ? cardNumber : null;
 	}
 	
 	public CreditCardName getCreditCardName() {
@@ -76,5 +77,10 @@ public class CreditCard {
 
 	public void setSecurityCode(String securityCode) {
 		this.securityCode = securityCode;
-	}	
+	}
+
+	private boolean isValidCardNumber(final String cardNumber) {
+		final CreditCardValidator ccValidator = new CreditCardValidator(CreditCardValidator.MASTERCARD + CreditCardValidator.VISA);
+		return ccValidator.isValid(cardNumber);
+	}
 }

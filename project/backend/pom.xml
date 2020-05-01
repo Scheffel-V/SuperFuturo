@@ -49,6 +49,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+		<dependency>
+		    <groupId>commons-validator</groupId>
+		    <artifactId>commons-validator</artifactId>
+		    <version>1.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

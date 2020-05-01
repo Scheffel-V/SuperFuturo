@@ -1,5 +1,8 @@
 package model;
 
+import java.lang.reflect.MalformedParametersException;
+import java.util.regex.Pattern;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

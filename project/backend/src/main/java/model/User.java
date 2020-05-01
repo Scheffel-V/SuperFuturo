@@ -28,7 +28,7 @@ public class User {
 		
 	}
 	
-	public User(final long id, final String cpf, final CreditCard creditCard) {
+	public User(final long id, final String cpf, final CreditCard creditCard) throws IllegalArgumentException {
 		super();
 		this.setId(id);
 		this.setCpf(cpf);
@@ -47,7 +47,11 @@ public class User {
 		return this.cpf;
 	}
 	
-	public void setCpf(final String cpf) {
+	public void setCpf(final String cpf) throws IllegalArgumentException {
+		if (!isValidCPF(cpf)) {
+			throw new IllegalArgumentException("Invalid CPF " + cpf);
+		}
+
 		this.cpf = cpf;
 	}
 	
@@ -61,5 +65,57 @@ public class User {
 	
 	public String toString() {
 		return "ID:" + this.getId().toString() + "CPF:" + this.getCpf().toString();
+	}
+
+
+	// expects a string of numbers, for example 546.471.429-49 would be passed as 54647142949
+	private static boolean isValidCPF(String cpf) throws MalformedParametersException {
+		final Pattern cpfRegex = Pattern.compile("[0-9]{11}");
+
+		if(!cpfRegex.matcher(cpf).matches()) {
+			throw new MalformedParametersException("CPF must be provided as a strings of numbers, without dots or dashes.");
+		}
+
+		// these cases are valid (digit-check wise), but are not considered valid cpfs
+		if (cpf.equals("00000000000") ||
+						cpf.equals("11111111111") ||
+						cpf.equals("22222222222") || cpf.equals("33333333333") ||
+						cpf.equals("44444444444") || cpf.equals("55555555555") ||
+						cpf.equals("66666666666") || cpf.equals("77777777777") ||
+						cpf.equals("88888888888") || cpf.equals("99999999999") ||
+						(cpf.length() != 11))
+			return false;
+
+		int accumulator = 0;
+		int multiplier = 10;
+
+		for (int i=0; i < 9; i++) {
+			accumulator += multiplier * Character.getNumericValue(cpf.charAt(i));
+			multiplier--;
+		}
+
+		final int dvRest10 = 11 - (accumulator % 11);
+		final int digit10 = (dvRest10 == 10) || (dvRest10 == 11) ? 0 : dvRest10;
+
+		if (digit10 != Character.getNumericValue(cpf.charAt(9))) {
+			return false;
+		}
+
+		accumulator = 0;
+		multiplier = 11;
+
+		for (int i=0; i < 10; i++) {
+			accumulator += multiplier * Character.getNumericValue(cpf.charAt(i));
+			multiplier--;
+		}
+
+		final int dvRest11 = 11 - (accumulator % 11);
+		final int digit11 = (dvRest11 == 10) || (dvRest11 == 11) ? 0 : dvRest11;
+
+		if (digit11 != Character.getNumericValue(cpf.charAt(10))) {
+			return false;
+		}
+
+		return true;
 	}
 }

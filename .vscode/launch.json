@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SuperfuturoApplication<superfuturo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.ufrgs.superfuturo.SuperfuturoApplication",
+            "projectName": "superfuturo",
+            "args": ""
+        }
+    ]
+}

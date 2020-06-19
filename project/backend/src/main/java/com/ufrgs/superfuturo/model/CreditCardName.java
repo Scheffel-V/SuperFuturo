@@ -1,4 +1,4 @@
-package model;
+package com.ufrgs.superfuturo.model;
 
 public enum CreditCardName {
 	MASTERCARD("MASTERCARD"), VISA("VISA");

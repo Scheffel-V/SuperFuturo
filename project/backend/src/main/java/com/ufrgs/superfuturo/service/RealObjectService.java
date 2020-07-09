@@ -17,18 +17,18 @@ public class RealObjectService {
 	@Autowired
 	private RealObjectRepository realObjectRepository;
 
+	public void addRealObject(final RealObject realObject) {
+		this.realObjectRepository.save(realObject);
+	}
+	
 	public List<RealObject> getAllRealObjects() {
 		final List<RealObject> realObjects = new ArrayList<RealObject>();
-		realObjectRepository.findAll().forEach(realObjects::add);
+		this.realObjectRepository.findAll().forEach(realObjects::add);
 		
 		return realObjects;
 	}
 	
-	public void addRealObject(final RealObject realObject) {
-		realObjectRepository.save(realObject);
-	}
-	
 	public void removeAllObjects() {
-		realObjectRepository.deleteAll();
+		this.realObjectRepository.deleteAll();
 	}
 }

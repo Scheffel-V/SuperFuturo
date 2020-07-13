@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ufrgs.superfuturo.model.RealObjectPack;
-import com.ufrgs.superfuturo.repository.RealObjectPackRepository;
+import com.ufrgs.superfuturo.model.InputObjectPack;
+import com.ufrgs.superfuturo.repository.InputObjectPackRepository;
 
 @Service
 @Transactional
-public class RealObjectPackService {
+public class InputObjectPackService {
 	
 	@Autowired
-	private RealObjectPackRepository realObjectPackRepository;
+	private InputObjectPackRepository realObjectPackRepository;
 
-	public List<RealObjectPack> getAllRealObjectPacks() {
-		final List<RealObjectPack> realObjectPacks = new ArrayList<RealObjectPack>();
+	public List<InputObjectPack> getAllRealObjectPacks() {
+		final List<InputObjectPack> realObjectPacks = new ArrayList<InputObjectPack>();
 		this.realObjectPackRepository.findAll().forEach(realObjectPacks::add);
 		
 		return realObjectPacks;
 	}
 	
-	public void addRealObjectPack(final RealObjectPack realObjectPack) {
+	public void addRealObjectPack(final InputObjectPack realObjectPack) {
 		this.realObjectPackRepository.save(realObjectPack);
 	}
 	

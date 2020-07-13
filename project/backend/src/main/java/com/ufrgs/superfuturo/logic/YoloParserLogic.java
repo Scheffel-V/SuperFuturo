@@ -3,7 +3,7 @@ package com.ufrgs.superfuturo.logic;
 import java.util.HashMap;
 import java.util.List;
 
-import com.ufrgs.superfuturo.model.RealObjectPack;
+import com.ufrgs.superfuturo.model.InputObjectPack;
 
 import com.ufrgs.superfuturo.model.InputObject;
 import com.ufrgs.superfuturo.model.Person;
@@ -48,10 +48,10 @@ public class YoloParserLogic {
 		}
 	}
 	
-	public static void processNewObjectPackList(final List<RealObjectPack> oldObjectPackList, final List<RealObjectPack> newObjectPackList) {
+	public static void processNewObjectPackList(final List<InputObjectPack> oldObjectPackList, final List<InputObjectPack> newObjectPackList) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
-		for (RealObjectPack object : oldObjectPackList) {
+		for (InputObjectPack object : oldObjectPackList) {
 			final Integer quantity = map.get(object.getName());
 			
 			if (quantity == null) {
@@ -61,7 +61,7 @@ public class YoloParserLogic {
 			}
 		}
 		
-		for (RealObjectPack object : newObjectPackList) {
+		for (InputObjectPack object : newObjectPackList) {
 			final Integer quantity = map.get(object.getName());
 			
 			if (quantity == null) {

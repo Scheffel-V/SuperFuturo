@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ufrgs.superfuturo.logic.YoloParserLogic;
-import com.ufrgs.superfuturo.model.RealObjectPack;
-import com.ufrgs.superfuturo.service.RealObjectPackService;
+import com.ufrgs.superfuturo.model.InputObjectPack;
+import com.ufrgs.superfuturo.service.InputObjectPackService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/realobjectpack")
-public class RealObjectPackController {
+public class InputObjectPackController {
 
 	@Autowired
-	private RealObjectPackService realObjectPackService;
+	private InputObjectPackService realObjectPackService;
 	
 	@PostMapping("/")
-	public ResponseEntity<RealObjectPack> createRealObjectPack(@Valid @RequestBody final RealObjectPack RealObjectPack) {
+	public ResponseEntity<InputObjectPack> createRealObjectPack(@Valid @RequestBody final InputObjectPack RealObjectPack) {
 		this.realObjectPackService.addRealObjectPack(RealObjectPack);
 		
 		final URI location = ServletUriComponentsBuilder
@@ -41,17 +41,17 @@ public class RealObjectPackController {
 	}
 	
 	@GetMapping("/")
-	public List<RealObjectPack> getRealObjectPack() {
+	public List<InputObjectPack> getRealObjectPack() {
 		return this.realObjectPackService.getAllRealObjectPacks();
 	}
 	
 	@PostMapping("/list")
-	public ResponseEntity<List<RealObjectPack>> createRealObjectPackQuantityList(@Valid @RequestBody final List<RealObjectPack> RealObjectPackList) {
+	public ResponseEntity<List<InputObjectPack>> createRealObjectPackQuantityList(@Valid @RequestBody final List<InputObjectPack> RealObjectPackList) {
 		YoloParserLogic.processNewObjectPackList(this.realObjectPackService.getAllRealObjectPacks(), RealObjectPackList);
 		
 		this.realObjectPackService.removeAllObjectPacks();
 		
-		for (final RealObjectPack object : RealObjectPackList) {
+		for (final InputObjectPack object : RealObjectPackList) {
 			this.realObjectPackService.addRealObjectPack(object);
 		}
 		

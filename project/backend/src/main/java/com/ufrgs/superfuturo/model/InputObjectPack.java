@@ -8,10 +8,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
-@Table(name = "realobjects")
-public class RealObject {
+@Table(name = "realobjectpacks")
+public class InputObjectPack {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,20 +20,16 @@ public class RealObject {
 	@Size(max = 100)
 	private String name;
 	
-	private int probability;
+	@NotNull
+	private int quantity;
 	
-	public RealObject() {
+	public InputObjectPack() {
 		
 	}
 	
-	public RealObject(final String name) {
+	public InputObjectPack(final String name, final int quantity) {
 		this.setName(name);
-		this.setProbability(0);
-	}
-	
-	public RealObject(final String name, final int probability) {
-		this.setName(name);
-		this.setProbability(probability);
+		this.setQuantity(quantity);
 	}
 	
 	public Long getId() {
@@ -49,15 +44,15 @@ public class RealObject {
 		return name;
 	}
 
-	public void setName(final String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public int getProbability() {
-		return probability;
+
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setProbability(final int probability) {
-		this.probability = probability;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }

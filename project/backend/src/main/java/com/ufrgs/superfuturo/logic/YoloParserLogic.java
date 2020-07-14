@@ -6,7 +6,7 @@ import java.util.List;
 import com.ufrgs.superfuturo.model.InputObjectPack;
 
 import com.ufrgs.superfuturo.model.InputObject;
-import com.ufrgs.superfuturo.model.Person;
+import com.ufrgs.superfuturo.model.InputPerson;
 
 
 public class YoloParserLogic {
@@ -84,10 +84,10 @@ public class YoloParserLogic {
 		}
 	}
 
-	public static void processNewPersons(final List<Person> oldPersons, final List<Person> newPersons) {
+	public static void processNewPersons(final List<InputPerson> oldPersons, final List<InputPerson> newPersons) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
-		for (Person person : oldPersons) {
+		for (InputPerson person : oldPersons) {
 			final Integer quantity = map.get(person.getClasse());
 			
 			if (quantity == null) {
@@ -97,7 +97,7 @@ public class YoloParserLogic {
 			}
 		}
 		
-		for (Person person : newPersons) {
+		for (InputPerson person : newPersons) {
 			final Integer quantity = map.get(person.getClasse());
 			
 			if (quantity == null) {

@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "persons")
-public class Person {
+public class InputPerson {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +41,11 @@ public class Person {
 	@NotNull
 	private Date timestamp;
 	
-	public Person() {
+	public InputPerson() {
 		
 	}
 	
-	public Person(final String classe, final int prob, final double bx, final double by, final double bw, final double bh, final Date timestamp) {
+	public InputPerson(final String classe, final int prob, final double bx, final double by, final double bw, final double bh, final Date timestamp) {
 		this.classe = classe;
 		this.prob = prob;
 		this.bx = bx;

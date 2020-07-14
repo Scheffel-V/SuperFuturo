@@ -127,4 +127,12 @@ public class User {
 
 		return true;
 	}
+	
+	public void buyProduct(final Product product) {
+		Stock.buyProduct(this, product);
+	}
+	
+	public void returnProduct(final Product product) {
+		Stock.returnProduct(this, product);
+	}
 }

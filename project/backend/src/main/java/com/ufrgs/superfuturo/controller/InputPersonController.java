@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ufrgs.superfuturo.logic.YoloParserLogic;
-import com.ufrgs.superfuturo.model.Person;
-import com.ufrgs.superfuturo.service.PersonService;
+import com.ufrgs.superfuturo.model.InputPerson;
+import com.ufrgs.superfuturo.service.InputPersonService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/person")
-public class PersonController {
+public class InputPersonController {
 	
 	@Autowired
-	private PersonService personService;
+	private InputPersonService personService;
 	
 	@PostMapping("/")
-	public ResponseEntity<Person> createRealObject(@Valid @RequestBody final Person person) {
+	public ResponseEntity<InputPerson> createRealObject(@Valid @RequestBody final InputPerson person) {
 		this.personService.addPerson(person);
 		
 		final URI location = ServletUriComponentsBuilder
@@ -41,12 +41,12 @@ public class PersonController {
 	}
 	
 	@GetMapping("/")
-	public List<Person> getPerson() {
+	public List<InputPerson> getPerson() {
 		return this.personService.getAllPersons();
 	}
 	
 	@PostMapping("/list")
-	public ResponseEntity<List<Person>> createPerson(@Valid @RequestBody final List<Person> newPersons) {
+	public ResponseEntity<List<InputPerson>> createPerson(@Valid @RequestBody final List<InputPerson> newPersons) {
 		YoloParserLogic.processNewPersons(this.personService.getAllPersons(), newPersons);
 		
 		this.personService.removeAllPersons();

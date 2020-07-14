@@ -7,28 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ufrgs.superfuturo.model.Person;
-import com.ufrgs.superfuturo.repository.PersonRepository;
+import com.ufrgs.superfuturo.model.InputPerson;
+import com.ufrgs.superfuturo.repository.InputPersonRepository;
 
 @Service
 @Transactional
-public class PersonService {
+public class InputPersonService {
 
 	@Autowired
-	private PersonRepository personRepository;
+	private InputPersonRepository personRepository;
 	
-	public void addPerson(final Person person) {
+	public void addPerson(final InputPerson person) {
 		this.personRepository.save(person);
 	}
 
-	public List<Person> getAllPersons() {
-		final List<Person> persons = new ArrayList<Person>();
+	public List<InputPerson> getAllPersons() {
+		final List<InputPerson> persons = new ArrayList<InputPerson>();
 		this.personRepository.findAll().forEach(persons::add);
 		
 		return persons;
 	}
 	
-	public void addPersons(final List<Person> persons) {
+	public void addPersons(final List<InputPerson> persons) {
 		this.personRepository.saveAll(persons);
 	}
 	

@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.ufrgs.superfuturo.model.InputObjectPack;
-
 import com.ufrgs.superfuturo.model.InputObject;
 import com.ufrgs.superfuturo.model.InputPerson;
 
 
-public class YoloParserLogic {
-	
+public abstract class YoloParserLogic {
+		
 	public static void processNewInputObjects(final List<InputObject> oldInputObjects, final List<InputObject> newInputObjects) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
@@ -40,10 +39,12 @@ public class YoloParserLogic {
 			
 			if (quantity > 0) {
 				System.out.println("Foi retirado [" +  Math.abs(quantity) + "] unidades de [" + key + "]");
+				SuperFuturoLogic.userBuyProduct(key);
 			}
 			
 			if (quantity < 0) {
 				System.out.println("Foi adicionado  [" + Math.abs(quantity) + "] unidades de [" + key + "]");
+				SuperFuturoLogic.userReturnProduct(key);
 			}
 		}
 	}
@@ -76,10 +77,12 @@ public class YoloParserLogic {
 			
 			if (quantity > 0) {
 				System.out.println("Foi retirado [" + Math.abs(quantity) + "] unidades de [" + key + "]");
+				SuperFuturoLogic.userBuyProduct(key);
 			}
 			
 			if (quantity < 0) {
 				System.out.println("Foi adicionado  [" + Math.abs(quantity) + "] unidades de [" + key + "]");
+				SuperFuturoLogic.userReturnProduct(key);
 			}
 		}
 	}

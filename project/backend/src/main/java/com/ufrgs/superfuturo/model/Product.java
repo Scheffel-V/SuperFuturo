@@ -25,6 +25,16 @@ public class Product {
 	
 	@NotNull
 	private double price;
+	
+	public Product() {
+		
+	}
+	
+	public Product(final String name, final String inputName, final double price) {
+		this.name = name;
+		this.inputName = inputName;
+		this.price = price;
+	}
 
 	public String getName() {
 		return name;
@@ -49,7 +59,4 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
-	
 }

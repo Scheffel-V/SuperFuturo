@@ -15,20 +15,20 @@ import com.ufrgs.superfuturo.repository.InputObjectPackRepository;
 public class InputObjectPackService {
 	
 	@Autowired
-	private InputObjectPackRepository realObjectPackRepository;
+	private InputObjectPackRepository inputObjectPackRepository;
 
-	public List<InputObjectPack> getAllRealObjectPacks() {
-		final List<InputObjectPack> realObjectPacks = new ArrayList<InputObjectPack>();
-		this.realObjectPackRepository.findAll().forEach(realObjectPacks::add);
+	public List<InputObjectPack> getAllInputObjectPacks() {
+		final List<InputObjectPack> inputObjectPacks = new ArrayList<InputObjectPack>();
+		this.inputObjectPackRepository.findAll().forEach(inputObjectPacks::add);
 		
-		return realObjectPacks;
+		return inputObjectPacks;
 	}
 	
-	public void addRealObjectPack(final InputObjectPack realObjectPack) {
-		this.realObjectPackRepository.save(realObjectPack);
+	public void addInputObjectPack(final InputObjectPack inputObjectPack) {
+		this.inputObjectPackRepository.save(inputObjectPack);
 	}
 	
 	public void removeAllObjectPacks() {
-		this.realObjectPackRepository.deleteAll();
+		this.inputObjectPackRepository.deleteAll();
 	}
 }

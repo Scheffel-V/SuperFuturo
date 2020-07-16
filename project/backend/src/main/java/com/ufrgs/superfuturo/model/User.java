@@ -32,13 +32,11 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "creditcard_id", referencedColumnName = "id")
 	private CreditCard creditCard;
-	
-	public User() {
 		
+	public User() {
 	}
 	
-	public User(final long id, final String cpf, final CreditCard creditCard) throws IllegalArgumentException {
-		super();
+	public User(final Long id, final String cpf, final CreditCard creditCard) throws IllegalArgumentException {
 		this.setId(id);
 		this.setCpf(cpf);
 		this.setCreditCard(creditCard);
@@ -128,11 +126,11 @@ public class User {
 		return true;
 	}
 	
-	public void buyProduct(final Product product) {
-		Stock.buyProduct(this, product);
+	public boolean buyProduct(final String productName) {
+		return Stock.buyProduct(this, productName);
 	}
 	
-	public void returnProduct(final Product product) {
-		Stock.returnProduct(this, product);
+	public boolean returnProduct(final String productName) {
+		return Stock.returnProduct(this, productName);
 	}
 }

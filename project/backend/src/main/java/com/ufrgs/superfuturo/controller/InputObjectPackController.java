@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,34 +24,16 @@ import com.ufrgs.superfuturo.service.InputObjectPackService;
 public class InputObjectPackController {
 
 	@Autowired
-	private InputObjectPackService realObjectPackService;
-	
-	@PostMapping("/")
-	public ResponseEntity<InputObjectPack> createRealObjectPack(@Valid @RequestBody final InputObjectPack RealObjectPack) {
-		this.realObjectPackService.addRealObjectPack(RealObjectPack);
-		
-		final URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(RealObjectPack.getId())
-				.toUri();
-		
-		return ResponseEntity.created(location).body(RealObjectPack);
-	}
-	
-	@GetMapping("/")
-	public List<InputObjectPack> getRealObjectPack() {
-		return this.realObjectPackService.getAllRealObjectPacks();
-	}
+	private InputObjectPackService inputObjectPackService;
 	
 	@PostMapping("/list")
-	public ResponseEntity<List<InputObjectPack>> createRealObjectPackQuantityList(@Valid @RequestBody final List<InputObjectPack> RealObjectPackList) {
-		YoloParserLogic.processNewObjectPackList(this.realObjectPackService.getAllRealObjectPacks(), RealObjectPackList);
+	public ResponseEntity<List<InputObjectPack>> createInputObjectPackQuantityList(@Valid @RequestBody final List<InputObjectPack> InputObjectPackList) {
+		YoloParserLogic.processNewObjectPackList(this.inputObjectPackService.getAllInputObjectPacks(), InputObjectPackList);
 		
-		this.realObjectPackService.removeAllObjectPacks();
+		this.inputObjectPackService.removeAllObjectPacks();
 		
-		for (final InputObjectPack object : RealObjectPackList) {
-			this.realObjectPackService.addRealObjectPack(object);
+		for (final InputObjectPack object : InputObjectPackList) {
+			this.inputObjectPackService.addInputObjectPack(object);
 		}
 		
 		final URI location = ServletUriComponentsBuilder
@@ -61,6 +42,6 @@ public class InputObjectPackController {
 				.buildAndExpand()
 				.toUri();
 		
-		return ResponseEntity.created(location).body(RealObjectPackList);
+		return ResponseEntity.created(location).body(InputObjectPackList);
 	}
 }

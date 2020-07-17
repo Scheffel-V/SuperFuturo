@@ -88,7 +88,7 @@ public class Stock {
 	}
 	
 	public static boolean returnProduct(final User user, final String productInputName) {
-		return Stock.buyProduct(user, Stock.getProductByInputName(productInputName));
+		return Stock.returnProduct(user, Stock.getProductByInputName(productInputName));
 	}
 	
 	public static boolean isProductInStock(final Product product) {

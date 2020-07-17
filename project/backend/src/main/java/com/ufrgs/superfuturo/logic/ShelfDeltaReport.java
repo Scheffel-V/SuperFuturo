@@ -2,6 +2,8 @@ package com.ufrgs.superfuturo.logic;
 
 import com.ufrgs.superfuturo.model.InputObject;
 
+import java.util.List;
+
 public class ShelfDeltaReport {
     final InputObject inputObject;
     final int delta;
@@ -16,7 +18,21 @@ public class ShelfDeltaReport {
         }
     }
 
-    public static ShelfDeltaReport EmptyReport() {
+    public void commitTransaction() {
+        if (this.delta == 1) {
+            SuperFuturoLogic.userReturnProduct(inputObject.getClasse());
+        } else if (this.delta == -1) {
+            SuperFuturoLogic.userBuyProduct(inputObject.getClasse());
+        } else {
+            // @log delta == 0 or invalid number
+        }
+    }
+
+    public static void commitAllTransactions(final List<ShelfDeltaReport> listOfReports) {
+        listOfReports.forEach(ShelfDeltaReport::commitTransaction);
+    }
+
+    public static ShelfDeltaReport emptyReport() {
         return new ShelfDeltaReport();
     }
 

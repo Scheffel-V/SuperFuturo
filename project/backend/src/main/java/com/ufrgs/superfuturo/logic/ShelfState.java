@@ -22,7 +22,14 @@ import java.util.stream.Collectors;
 // that leftmost product has smaller x coordinate (InputObject.bx)
 // same goes for the front view parser, are assume that the leftmost product is the lower x value
 public class ShelfState {
-    public static double DX_TOLERANCE = 0.05;
+    // t1: 6 objs, positions...
+    // t1: 3 obs, V, V, A
+    // t2: 5 objs, positions...
+    // t2: 3 obs, V, V, A
+    // *                                    A  V  V
+    //*                                     V  V  A
+    //                                         *
+    public static double DX_TOLERANCE = 0.05; // YOLO dimensions (normalized to 1)
     List<Group> groups = new ArrayList<>();
 
     public static class Group {
@@ -46,7 +53,7 @@ public class ShelfState {
             } else if (newGroup.members.size() < oldGroup.members.size()) {
                 return new ShelfDeltaReport(oldGroup.members.get(0), oldGroup.groupLeader, -1);
             } else {
-                return ShelfDeltaReport.EmptyReport();
+                return ShelfDeltaReport.emptyReport();
             }
         }
 
@@ -68,18 +75,18 @@ public class ShelfState {
         this.groups.add(new Group(group, groupLeader));
     }
 
-    public static ShelfState getShelfState(final List<InputObject> aboveParser, final List<InputObject> frontParser) {
+    public static ShelfState getShelfState(final List<InputObject> topParser, final List<InputObject> frontParser) {
 
         final ShelfState shelfState = new ShelfState();
 
-        aboveParser.sort(Comparator.comparingDouble(InputObject::getBx));
-        frontParser.sort(Comparator.comparingDouble(InputObject::getBx));
+        topParser.sort(Comparator.comparingDouble(InputObject::getBx));  // A  B  C
+        frontParser.sort(Comparator.comparingDouble(InputObject::getBx));// X     Z
 
         final List<InputObject> temp = new ArrayList();
-        double compDx = aboveParser.get(0).getBx();
+        double compDx = topParser.get(0).getBx();
         final Iterator<InputObject> frontParserIter = frontParser.iterator();
 
-        for (final InputObject io : aboveParser) {
+        for (final InputObject io : topParser) {
             final double diff = Math.abs(io.getBx() - compDx);
 
             if (diff >= DX_TOLERANCE) {
@@ -109,15 +116,12 @@ public class ShelfState {
         final List<Double> oldStateGroupsPositions = oldState.groups.stream().map(Group::getDx).collect(Collectors.toList());
         final List<Double> newStateGroupsPositions = newState.groups.stream().map(Group::getDx).collect(Collectors.toList());
 
-        final List<Integer> oldSkipped;
-        final List<Integer> newSkipped;
         int oldIndex = 0;
         int newIndex = 0;
-        final int[] pairing = new int[newStateGroupsPositions.size()];
 
         final List<ShelfDeltaReport> deltaReports = new ArrayList<>();
 
-        while (newIndex < newStateGroupsPositions.size() || oldIndex < oldStateGroupsPositions.size()) {
+        while (newIndex < newStateGroupsPositions.size() && oldIndex < oldStateGroupsPositions.size()) {
             double diff = newStateGroupsPositions.get(newIndex) - oldStateGroupsPositions.get(oldIndex);
 
             if (Math.abs(diff) < DX_TOLERANCE) {

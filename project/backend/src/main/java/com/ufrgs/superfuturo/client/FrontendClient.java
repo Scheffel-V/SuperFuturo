@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,14 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.google.gson.Gson;
 import com.ufrgs.superfuturo.model.Product;
 import com.ufrgs.superfuturo.model.StockProducts;
+import org.springframework.web.util.UriBuilder;
 
 
 public class FrontendClient {
@@ -32,16 +35,20 @@ public class FrontendClient {
 		
 	}
 	
-	public void sendReturnProduct(final Product product) {
+	public void sendReturnProduct(final Product product) throws URISyntaxException {
 		System.out.println("User returned product " + product.getName());
 	    
 		final HttpClient httpclient = HttpClients.createDefault();
-		final HttpPost httppost = new HttpPost(this.removeProductApiUrl);
+		final URIBuilder uriBuilder = new URIBuilder(this.removeProductApiUrl);
 		final List<NameValuePair> params = new ArrayList<NameValuePair>(1);
 		params.add(new BasicNameValuePair(this.nameParamString, product.getName()));
+		// add all needed params
+		uriBuilder.addParameters(params);
+		final HttpPost httppost = new HttpPost(uriBuilder.build());
 
 		try {
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			System.out.println(httppost.toString());
 			System.out.println(new UrlEncodedFormEntity(params, "UTF-8").toString());
 			httpclient.execute(httppost);
 		} catch (ClientProtocolException e) {
@@ -52,13 +59,16 @@ public class FrontendClient {
 	    
 	}
 	
-	public void sendBuyProduct(final Product product) {
+	public void sendBuyProduct(final Product product) throws URISyntaxException {
 		System.out.println("User bought product " + product.getName());
 		
 		final HttpClient httpclient = HttpClients.createDefault();
-		final HttpPost httppost = new HttpPost(this.addProductApiUrl);
+		final URIBuilder uriBuilder = new URIBuilder(this.addProductApiUrl);
 		final List<NameValuePair> params = new ArrayList<NameValuePair>(1);
 		params.add(new BasicNameValuePair(this.nameParamString, product.getName()));
+		// add all needed params
+		uriBuilder.addParameters(params);
+		final HttpPost httppost = new HttpPost(uriBuilder.build());
 
 		try {
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));

@@ -1,6 +1,7 @@
 package com.ufrgs.superfuturo.logic;
 
 import com.ufrgs.superfuturo.model.InputObject;
+import org.hibernate.sql.ordering.antlr.OrderingSpecification;
 
 /* @TODO
 *  talk with team about idea:
@@ -75,13 +76,31 @@ public class ShelfState {
         this.groups.add(new Group(group, groupLeader));
     }
 
-    public static ShelfState getShelfState(final List<InputObject> topParser, final List<InputObject> frontParser) {
+    // both topParser and frontParser and failedFrontParser are expected to be sorted by the value of field bx
+    // it's either this restriction, sychronizing the sorting of topParser and frontParser or
+    // even creating a local copy of the list every time so we can sort locally
+    public static ShelfState getShelfState(final List<InputObject> topParser, final List<InputObject> frontParser, final List<InputObject> failedFrontParser) {
+        // @TODO assert are lists sorted?
 
+        try {
+            return ShelfState.getShelfState(topParser, frontParser);
+        } catch (final IllegalStateException ex) {
+            // the front update might've reached before top update,
+            // at that time, we would've deemed this state inconsistent
+            // however that might've been a valid case after top update is done
+            // therefore, if we are inconsistent and we have a timeout we need to check it
+            if (YoloParserLogic.inconsistentStateIsLatest() && YoloParserLogic.hasTimeoutBeenReached()) {
+                final ShelfState shelfState = ShelfState.getShelfState(topParser, failedFrontParser);
+                YoloParserLogic.undoInconsistentState();
+                return shelfState;
+            } else {
+                throw ex;
+            }
+        }
+    }
+
+    private static ShelfState getShelfState(final List<InputObject> topParser, final List<InputObject> frontParser) {
         final ShelfState shelfState = new ShelfState();
-
-        topParser.sort(Comparator.comparingDouble(InputObject::getBx));  // A  B  C
-        frontParser.sort(Comparator.comparingDouble(InputObject::getBx));// X     Z
-
         List<InputObject> temp = new ArrayList();
         double compDx = topParser.get(0).getBx();
         final Iterator<InputObject> frontParserIter = frontParser.iterator();

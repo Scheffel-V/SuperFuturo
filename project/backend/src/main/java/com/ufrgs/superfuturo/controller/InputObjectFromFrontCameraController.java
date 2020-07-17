@@ -20,8 +20,6 @@ public class InputObjectFromFrontCameraController {
 	
 	@PostMapping("/list")
 	public ResponseEntity<List<InputObject>> createInputObjectList(@Valid @RequestBody final List<InputObject> inputObjects) {
-		System.out.println("PRINTING A LOT OF STUFF: front: ");
-		InputObject.printListOfInputObjects(inputObjects);
 		YoloParserLogic.processFrontInputObjects(inputObjects);
 		YoloParserLogic.commitTransactions();
 
@@ -36,9 +34,6 @@ public class InputObjectFromFrontCameraController {
 	
 	@PostMapping("/startlist")
 	public ResponseEntity<List<InputObject>> createStartInputObjectList(@Valid @RequestBody final List<InputObject> inputObjects) {
-		System.out.println("PRINTING A LOT OF STUFF: front: ");
-		InputObject.printListOfInputObjects(inputObjects);
-
 		YoloParserLogic.setupFrontInputObjects(inputObjects);
 
 		final URI location = ServletUriComponentsBuilder

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.ufrgs.superfuturo.logic.YoloParserLogic;
 import com.ufrgs.superfuturo.model.InputPerson;
 import com.ufrgs.superfuturo.service.InputPersonService;
 
@@ -28,7 +27,6 @@ public class InputPersonController {
 	
 	@PostMapping("/list")
 	public ResponseEntity<List<InputPerson>> createPerson(@Valid @RequestBody final List<InputPerson> newPersons) {
-		YoloParserLogic.processNewPersons(this.personService.getAllPersons(), newPersons);
 		
 		this.personService.removeAllPersons();
 		this.personService.addPersons(newPersons);

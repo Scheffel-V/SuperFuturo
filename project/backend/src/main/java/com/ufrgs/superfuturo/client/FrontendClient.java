@@ -42,6 +42,7 @@ public class FrontendClient {
 
 		try {
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			System.out.println(new UrlEncodedFormEntity(params, "UTF-8").toString());
 			httpclient.execute(httppost);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -61,6 +62,8 @@ public class FrontendClient {
 
 		try {
 			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			System.out.println(httppost.toString());
+			System.out.println(new UrlEncodedFormEntity(params, "UTF-8").toString());
 			httpclient.execute(httppost);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

@@ -16,12 +16,12 @@ public abstract class SuperFuturoLogic {
 	private static boolean started = false;
 	private static User user = new User(0L, "82121262776", new CreditCard(0L, "1234.1234.1234.1234", CreditCardName.MASTERCARD, new Date(), "123"));
 	
-	public static void userBuyProduct(final String productName) {
-		SuperFuturoLogic.user.buyProduct(productName);
+	public static void userBuyProduct(final String productInputName) {
+		SuperFuturoLogic.user.buyProduct(productInputName);
 	}
 	
-	public static void userReturnProduct(final String productName) {
-		SuperFuturoLogic.user.returnProduct(productName);
+	public static void userReturnProduct(final String productInputName) {
+		SuperFuturoLogic.user.returnProduct(productInputName);
 	}
 	
 	public static void initializeStockProducts(final List<Product> stockProducts) {
@@ -39,15 +39,21 @@ public abstract class SuperFuturoLogic {
 	public static void start() {
 		if (!SuperFuturoLogic.started) {
 			
-			final Product p1 = new Product("visconti", "visconti", 10.50);
-			final Product p2 = new Product("ades", "ades", 5);
-			final Product p3 = new Product("italac", "italac", 6);
+			final Product p1 = new Product("Visconti", "visconti", 10.50);
+			final Product p2 = new Product("Ades", "ades", 5);
+			final Product p3 = new Product("Italac", "italac", 6);
+			final Product p4 = new Product("Visconti", "visconti", 10.50);
+			final Product p5 = new Product("Ades", "ades", 5);
+			final Product p6 = new Product("Italac", "italac", 6);
 			
 			final List<Product> products = new ArrayList<Product>();
 			
 			products.add(p1);
 			products.add(p2);
 			products.add(p3);
+			products.add(p4);
+			products.add(p5);
+			products.add(p6);
 			
 			SuperFuturoLogic.initializeStockProducts(products);
 		}

@@ -28,7 +28,8 @@ public class InputObjectController {
 	
 	@PostMapping("/list")
 	public ResponseEntity<List<InputObject>> createInputObjectList(@Valid @RequestBody final List<InputObject> inputObjects) {
-		YoloParserLogic.processNewInputObjects(this.inputObjectService.getAllInputObjects(), inputObjects);
+		// YoloParserLogic.processNewInputObjects(this.inputObjectService.getAllInputObjects(), inputObjects);
+		YoloParserLogic.commitTransactions();
 		
 		this.inputObjectService.removeAllInputObjects();
 		this.inputObjectService.addInputObjects(inputObjects);

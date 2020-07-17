@@ -29,7 +29,7 @@ public class ShelfState {
     // *                                    A  V  V
     //*                                     V  V  A
     //                                         *
-    public static double DX_TOLERANCE = 0.05; // YOLO dimensions (normalized to 1)
+    public static double DX_TOLERANCE = 0.007; // YOLO dimensions (normalized to 1)
     List<Group> groups = new ArrayList<>();
 
     public static class Group {
@@ -82,7 +82,7 @@ public class ShelfState {
         topParser.sort(Comparator.comparingDouble(InputObject::getBx));  // A  B  C
         frontParser.sort(Comparator.comparingDouble(InputObject::getBx));// X     Z
 
-        final List<InputObject> temp = new ArrayList();
+        List<InputObject> temp = new ArrayList();
         double compDx = topParser.get(0).getBx();
         final Iterator<InputObject> frontParserIter = frontParser.iterator();
 
@@ -93,7 +93,7 @@ public class ShelfState {
                 // move into new group and commit last one
                 validateFrontParserIterator(frontParserIter);
                 shelfState.addGroup(temp, frontParserIter.next());
-                temp.clear();
+                temp = new ArrayList<>();
                 compDx = io.getBx();
             }
 
@@ -160,7 +160,8 @@ public class ShelfState {
     }
 
     private static void validateFrontParserIterator(final Iterator<InputObject> frontParserIter, final boolean expectEmpty) {
-        if (expectEmpty ^ frontParserIter.hasNext()) {
+        final boolean validationPassed = expectEmpty ^ frontParserIter.hasNext();
+        if (!validationPassed) {
             throw new IllegalStateException("Fatal mismatch between number of groups in top parser and number of groups in front parser");
         }
     }

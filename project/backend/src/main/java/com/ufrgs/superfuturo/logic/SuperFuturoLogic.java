@@ -3,6 +3,9 @@ package com.ufrgs.superfuturo.logic;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.ufrgs.superfuturo.model.CreditCard;
 import com.ufrgs.superfuturo.model.CreditCardName;
@@ -12,10 +15,12 @@ import com.ufrgs.superfuturo.model.User;
 
 
 public abstract class SuperFuturoLogic {
-	
+
+	private static final long COMMIT_TASK_PERIOD = 500; // milliseconds
 	private static boolean started = false;
 	private static User user = new User(0L, "82121262776", new CreditCard(0L, "1234.1234.1234.1234", CreditCardName.MASTERCARD, new Date(), "123"));
-	
+	private static final ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
+
 	public static void userBuyProduct(final String productInputName) {
 		SuperFuturoLogic.user.buyProduct(productInputName);
 	}
@@ -56,6 +61,18 @@ public abstract class SuperFuturoLogic {
 			products.add(p6);
 			
 			SuperFuturoLogic.initializeStockProducts(products);
+
+			scheduledTaskExecutor.scheduleAtFixedRate(SuperFuturoLogic::tryCommitTransactions, 2000, COMMIT_TASK_PERIOD, TimeUnit.MILLISECONDS);
+		}
+	}
+
+	private static void tryCommitTransactions() {
+		try {
+			if (YoloParserLogic.isInitialSetupDone())
+				YoloParserLogic.commitTransactions();
+		} catch (final Exception ex) {
+			ex.printStackTrace();
+			System.out.println("ERROR AT SCHEDULED JOB: " + ex.toString());
 		}
 	}
 }

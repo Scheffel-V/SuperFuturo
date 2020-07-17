@@ -1,6 +1,7 @@
 package com.ufrgs.superfuturo.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -75,7 +76,7 @@ public class InputObject {
 		return this.prob;
 	}
 	
-	public void setProb(final int prob) {
+	public void getProb(final int prob) {
 		this.prob = prob;
 	}
 	
@@ -83,7 +84,7 @@ public class InputObject {
 		return this.bx;
 	}
 	
-	public void setBx(final int bx) {
+	public void getBx(final int bx) {
 		this.bx = bx;
 	}
 
@@ -99,7 +100,7 @@ public class InputObject {
 		return this.bw;
 	}
 	
-	public void setBw(final int bw) {
+	public void getBw(final int bw) {
 		this.bw = bw;
 	}
 	
@@ -107,7 +108,7 @@ public class InputObject {
 		return this.bh;
 	}
 	
-	public void setBh(final int bh) {
+	public void getBh(final int bh) {
 		this.bh = bh;
 	}
 	
@@ -115,7 +116,18 @@ public class InputObject {
 		return this.timestamp;
 	}
 	
-	public void setTimestamp(final Date timestamp) {
+	public void getTimestamp(final Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String toString() {
+		return "Entity of type '" + this.getClasse() + "' @ x=" + this.getBx() + ", y=" + this.getBy()
+				+ "  with bounding boxes of w: " + this.getBw() +  ", h: " + this.getBh() + "   recorded @ " + this.getTimestamp().toString();
+	}
+
+	public static void printListOfInputObjects(List<InputObject> lio) {
+		for (InputObject ob : lio) {
+			System.out.println(ob);
+		}
 	}
 }

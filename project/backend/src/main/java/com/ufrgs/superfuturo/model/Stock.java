@@ -1,5 +1,6 @@
 package com.ufrgs.superfuturo.model;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,8 +64,14 @@ public class Stock {
 			
 			Stock.stockedProducts.remove(productToBuy);
 			Stock.createBuyOrder(user, product);
-			Stock.frontendClient.sendBuyProduct(product);
-			
+
+			try {
+				Stock.frontendClient.sendBuyProduct(product);
+			} catch (final URISyntaxException ex) {
+				ex.printStackTrace();
+				System.out.println("FATAL ERROR: error while building URI, request won't be transmitted to the backend");
+			}
+
 			return true;
 		}
 		
@@ -82,8 +89,14 @@ public class Stock {
 		
 		Stock.stockedProducts.add(product);
 		Stock.createReturnOrder(user, product);
-		Stock.frontendClient.sendReturnProduct(product);
-		
+
+		try {
+			Stock.frontendClient.sendReturnProduct(product);
+		} catch (final URISyntaxException ex) {
+			ex.printStackTrace();
+			System.out.println("FATAL ERROR: error while building URI, request won't be transmitted to the backend");
+		}
+
 		return true;
 	}
 	

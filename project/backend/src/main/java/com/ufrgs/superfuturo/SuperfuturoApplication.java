@@ -8,7 +8,6 @@ import com.ufrgs.superfuturo.logic.SuperFuturoLogic;
 
 @SpringBootApplication
 public class SuperfuturoApplication {
-
 	public static void main(final String[] args) {
 		SpringApplication.run(SuperfuturoApplication.class, args);
 		SuperFuturoLogic.start();

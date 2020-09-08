@@ -16,7 +16,7 @@ import com.ufrgs.superfuturo.model.User;
 
 public abstract class SuperFuturoLogic {
 
-	private static final long COMMIT_TASK_PERIOD = 500; // milliseconds
+	private static final long COMMIT_TASK_PERIOD = 100; // milliseconds
 	private static boolean started = false;
 	private static User user = new User(0L, "82121262776", new CreditCard(0L, "1234.1234.1234.1234", CreditCardName.MASTERCARD, new Date(), "123"));
 	private static final ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();

@@ -121,7 +121,7 @@ public class InputObject {
 	}
 
 	public String toString() {
-		return "Entity of type '" + this.getClasse() + "' @ x=" + this.getBx() + ", y=" + this.getBy()
+		return "Probability of " + this.getProb() + " of Entity of type '" + this.getClasse() + "' @ x=" + this.getBx() + ", y=" + this.getBy()
 				+ "  with bounding boxes of w: " + this.getBw() +  ", h: " + this.getBh() + "   recorded @ " + this.getTimestamp().toString();
 	}
 

@@ -2,7 +2,35 @@
 * Front
 https://github.com/NicolasCendron/SuperDoFuturoFront
 
-## How to run project
+## Backend
+The backend REST API was developed using **Java**, with **Spring Framework**, **Spring Boot** and **Hibernate**.
+
+## Run
+To run the backend, you will need to install Java and Maven. Then, run the following commands inside the root directory of the repository:
+```
+cd backend
+mvn spring-boot:run
+```
+The backend server will be running on: 
+```
+http://127.0.0.1:8080/
+```
+
+## API
+
+This is the API used to communicate from the YoloParser to the backend.
+
+### POST
+
+- /api/inputobjectfromfrontcamera/list
+- /api/inputobjectfromfrontcamera/startlist
+
+- /api/inputobjectfromtopcamera/list
+- /api/inputobjectfromtopcamera/startlist
+
+- /api/person/list
+
+## How to run whole project
 	1. open front end node js app
 	2. run backend app (this)
 	3. open index.html page and log in
